@@ -184,5 +184,20 @@ class Common extends Controller
         Cache::clear();
         $this->success('缓存清除成功！');
     }
+    
+    //获取日期
+    function get_week($time, $format = "Y-m-d")
+    {
+        $week = date('w', $time);
+        $weekname = array(1, 2, 3, 4, 5, 6, 7);
+        if (empty($week)) {
+            $week = 7;
+        }
+        for ($i = 0; $i <= 6; $i++) {
+            $data[$i]['date'] = date($format, strtotime('+' . $i + 1 - $week . ' days', $time));
+            $data[$i]['week'] = $weekname[$i];
+        }
+        return $data;
+    }
 
 }
