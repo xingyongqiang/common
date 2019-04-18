@@ -1,0 +1,23 @@
+$where = "`userid` > 1";
+    $ulist = $db->select($where,'userid,tjuid,username,nickname,mobile','','userid asc');
+    //将$ulist数组键名重置为该数组元素的userid值
+
+    foreach($ulist as $val){
+
+        $items[$val['userid']] = $val;
+
+    }
+
+ 
+
+    //利用变量引用实现无限级分类
+
+    foreach ($items as $item){
+
+        $items[$item['tjuid']]['son'][$item['userid']] = &$items[$item['userid']];
+
+    }
+
+ 
+
+    print_r($items[0]['son']);
